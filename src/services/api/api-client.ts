@@ -3,15 +3,19 @@ import { TApiClientConfig } from "./@types/api-client.types"
 
 export function ApiClient(
   config: TApiClientConfig = {
-    baseURL: "/api",
+    path: "/api",
   }
 ) {
+  const apiUrl = process.env.API_URL
+  const baseURL = `${apiUrl}${config.path}`
+
   const apiInstance = axios.create({
-    baseURL: config.baseURL,
+    baseURL,
     headers: {},
   })
 
   return apiInstance
 }
 
+// Client side
 export const api = ApiClient()

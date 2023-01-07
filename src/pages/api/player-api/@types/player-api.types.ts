@@ -1,14 +1,16 @@
 export type SongsResponse = {
-  Songs: Song[]
+  songs: Song[]
 }
 
 export type Song = {
   uid: string
   name: string
   "stream-url": string
+  "local-file-name": string
   img: {
-    sm: string
-    md: string
+    sm?: string
+    md?: string
+    lg?: string
   }
   meta: Partial<SongMeta>
 }

@@ -1,3 +1,3 @@
 export type TApiClientConfig = {
-  baseURL?: string
+  path?: string
 }
