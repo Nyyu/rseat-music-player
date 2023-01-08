@@ -5,7 +5,12 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        "spin-faster": "spin .65s linear infinite",
+        "pulse-faster": "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

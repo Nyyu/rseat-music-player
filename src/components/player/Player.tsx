@@ -5,11 +5,10 @@ import clsx from "clsx"
 import "@vime/core/themes/default.css"
 
 import { Container } from "../core/Container"
-import { Text } from "../core/Text"
 import { Heading, HeadingProps } from "../core/Heading"
 
 const DynamicVimePlayer = dynamic(() => import("./VimePlayer"), { ssr: false })
-const DynamicVimeAudioPlayer = dynamic(() => import("./VimeAudio"), {
+const DynamicYtAudioPlayer = dynamic(() => import("./YtAudio"), {
   ssr: false,
 })
 
@@ -19,7 +18,11 @@ interface BodyProps {
 }
 
 const Body = ({ children, className }: BodyProps) => {
-  return <Container className={`p-7 ${className}`}>{children}</Container>
+  return (
+    <Container className={`p-7 ${className}`}>
+      <>{children}</>
+    </Container>
+  )
 }
 
 interface TitleProps extends HeadingProps {}
@@ -51,11 +54,17 @@ const Image = ({
 }
 
 interface ControlProps {
-  localFileName: string
+  src: string
 }
 
-const Control = ({ localFileName }: ControlProps) => {
-  return <DynamicVimeAudioPlayer localFileName={localFileName} />
+const Control = ({ src }: ControlProps) => {
+  return (
+    <DynamicYtAudioPlayer
+      handleForward={() => {}}
+      handleRewind={() => {}}
+      link={src}
+    />
+  )
 }
 
 interface EmbedProps {

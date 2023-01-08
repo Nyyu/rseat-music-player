@@ -13,10 +13,12 @@ interface SongsProps {
 
 const Songs = ({ availableSongs = [] }: SongsProps) => {
   return (
-    <main className="mx-12 my-8 flex gap-4">
-      {availableSongs?.map((song) => {
-        return <SongCard song={song} key={song.uid} />
-      })}
+    <main className="min-h-screen h-full flex justify-center items-center">
+      <section aria-label="music selection" className="flex gap-4">
+        {availableSongs?.map((song) => {
+          return <SongCard song={song} key={song.uid} />
+        })}
+      </section>
     </main>
   )
 }

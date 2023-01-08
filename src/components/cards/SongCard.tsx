@@ -11,15 +11,18 @@ export const SongCard = ({ song }: SongCardProps) => {
   return (
     <Player.Body
       key={song.uid}
-      className="flex flex-col gap-7 justify-center hover:brightness-75 transition duration-[350ms] hover:-translate-y-3 hover:cursor-pointer group shadow-md hover:shadow-xl"
+      className="flex flex-col gap-7 justify-center items-center transition duration-[350ms] hover:-translate-y-3 group shadow-md hover:shadow-xl hover:cursor-pointer"
     >
       <Player.Image
         src={song.img.md ?? ""}
         alt={`${song.name} banner`}
-        className="max-w-[13rem] w-full object-cover group-hover:brightness-125 group-hover:scale-105 duration-[350ms]"
+        className="max-w-[13rem] aspect-square w-full max-h-[13rem] object-cover group-hover:scale-105 duration-[350ms]"
       />
       <Player.Title asChild>
-        <span aria-label="music metadata" className="flex flex-col gap-2">
+        <span
+          aria-label="music metadata"
+          className="flex flex-col gap-2 items-start"
+        >
           <Heading size="2xl" weight="bold">
             {song.name}
           </Heading>
@@ -28,7 +31,7 @@ export const SongCard = ({ song }: SongCardProps) => {
           </Text>
         </span>
       </Player.Title>
-      <Player.Controls localFileName={song["local-file-name"]} />
+      <Player.Controls src={song["stream-url"]} />
     </Player.Body>
   )
 }

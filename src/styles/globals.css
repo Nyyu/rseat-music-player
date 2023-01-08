@@ -5,3 +5,7 @@
 audio {
   display: none;
 }
+
+:focus {
+  @apply focus:outline-none focus:outline-4 focus:outline-offset-2 focus:outline-primary-focus;
+}

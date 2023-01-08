@@ -1,7 +1,8 @@
+import { Slot } from "@radix-ui/react-slot"
 import clsx from "clsx"
 
 interface ContainerProps {
-  as?: "div" | "section" | "span"
+  asChild?: boolean
   children: React.ReactNode
   className?: string
 }
@@ -9,9 +10,9 @@ interface ContainerProps {
 export const Container = ({
   className = "",
   children,
-  as = "div",
+  asChild = false,
 }: ContainerProps) => {
-  const ContainerSlot = as
+  const ContainerSlot = asChild ? Slot : "div"
   return (
     <ContainerSlot className={clsx("bg-primary rounded-lg", className)}>
       {children}

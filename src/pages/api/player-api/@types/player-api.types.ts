@@ -6,7 +6,7 @@ export type Song = {
   uid: string
   name: string
   "stream-url": string
-  "local-file-name": string
+  "local-file-name"?: string
   img: {
     sm?: string
     md?: string
