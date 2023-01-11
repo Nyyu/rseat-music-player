@@ -8,26 +8,31 @@ import {
 } from "phosphor-react"
 import { useEffect, useState, useRef } from "react"
 import YoutubePlayer from "react-youtube"
+import { formatTime } from "../../utils/formatTime"
 
 interface YoutubeAudioProps {
   link?: string
   handleRewind: () => void
   handleForward: () => void
+  forceLayout?: boolean
 }
 
 type MetaProps = {
   duration: number
   currentTime: number
+  missingTime: number
 }
 
 const YtAudio = ({
   link = "",
   handleForward,
   handleRewind,
+  forceLayout = false,
 }: YoutubeAudioProps) => {
   const [meta, setMeta] = useState<MetaProps>({
     currentTime: 0,
     duration: 0,
+    missingTime: 0,
   })
   const [isPlaying, setIsPlaying] = useState(false)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
@@ -43,10 +48,12 @@ const YtAudio = ({
     if (duration && currentTime) {
       const formattedDuration = Math.round(duration)
       const formattedCurrentTime = Math.round(currentTime)
+      const formattedMissingTime = duration - currentTime
 
       setMeta({
         duration: formattedDuration,
         currentTime: formattedCurrentTime,
+        missingTime: formattedMissingTime,
       })
     }
   }
@@ -75,6 +82,10 @@ const YtAudio = ({
 
       if (player["stopVideo"]) player.pauseVideo()
     }
+
+    return () => {
+      clearInterval(metaInterval)
+    }
   }, [isPlaying])
 
   const metaInterval = setInterval(() => {
@@ -92,7 +103,7 @@ const YtAudio = ({
 
   return (
     <div className="w-full">
-      {isPlayerReady ? (
+      {isPlayerReady || forceLayout ? (
         <>
           <div className="flex justify-between">
             <span
@@ -114,16 +125,16 @@ const YtAudio = ({
               <FastForward weight="fill" />
             </span>
           </div>
-          {meta && meta.duration > 0 && (
+          {((meta && meta.duration > 0) || forceLayout) && (
             <div>
               <progress
-                className="progress progress-primary"
+                className="progress"
                 value={meta.currentTime}
                 max={meta.duration}
               />
               <div className="flex justify-between text-sm opacity-70">
-                <span>{meta.currentTime}</span>
-                <span>{meta.duration}</span>
+                <span>{formatTime(meta.currentTime)}</span>
+                <span>{formatTime(meta.duration)}</span>
               </div>
             </div>
           )}

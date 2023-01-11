@@ -6,7 +6,7 @@ export function ApiClient(
     path: "/api",
   }
 ) {
-  const apiUrl = process.env.API_URL
+  const apiUrl = process.env.API_URL ?? "http://localhost:3000/"
   const baseURL = `${apiUrl}${config.path}`
 
   const apiInstance = axios.create({

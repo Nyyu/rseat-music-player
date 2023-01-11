@@ -55,11 +55,13 @@ const Image = ({
 
 interface ControlProps {
   src: string
+  forceLayout?: boolean
 }
 
-const Control = ({ src }: ControlProps) => {
+const Control = ({ src, forceLayout = false }: ControlProps) => {
   return (
     <DynamicYtAudioPlayer
+      forceLayout={forceLayout}
       handleForward={() => {}}
       handleRewind={() => {}}
       link={src}

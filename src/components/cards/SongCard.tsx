@@ -5,18 +5,24 @@ import Player from "../player/Player"
 
 interface SongCardProps {
   song: Song
+  containerClassName?: string
+  forcePlayerLayout?: boolean
 }
 
-export const SongCard = ({ song }: SongCardProps) => {
+export const SongCard = ({
+  song,
+  containerClassName = "",
+  forcePlayerLayout = false,
+}: SongCardProps) => {
   return (
     <Player.Body
       key={song.uid}
-      className="flex flex-col gap-7 justify-center items-center transition duration-[350ms] hover:-translate-y-3 group shadow-md hover:shadow-xl hover:cursor-pointer"
+      className={`flex flex-col gap-7 justify-center items-center transition duration-[350ms] hover:-translate-y-3 group shadow-md hover:shadow-xl ${containerClassName}`}
     >
       <Player.Image
         src={song.img.md ?? ""}
         alt={`${song.name} banner`}
-        className="max-w-[13rem] aspect-square w-full max-h-[13rem] object-cover group-hover:scale-105 duration-[350ms]"
+        className="max-w-[12rem] aspect-square w-full max-h-[12rem] object-cover group-hover:scale-105 duration-[350ms]"
       />
       <Player.Title asChild>
         <span
@@ -31,7 +37,10 @@ export const SongCard = ({ song }: SongCardProps) => {
           </Text>
         </span>
       </Player.Title>
-      <Player.Controls src={song["stream-url"]} />
+      <Player.Controls
+        src={song["stream-url"]}
+        forceLayout={forcePlayerLayout}
+      />
     </Player.Body>
   )
 }
